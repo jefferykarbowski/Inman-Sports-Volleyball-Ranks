@@ -165,6 +165,11 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_filter( 'wpmem_payment_button_args', $plugin_admin, 'wpmem_adjust_payment_button' );
 
+        $this->loader->add_filter( 'apto/admin/sort-order-tabs', $plugin_admin, 'change_sort_order_tabs', 10, 2 );
+
+        // filter apto/admin/sort-taxonomies
+        $this->loader->add_filter( 'apto/admin/sort-taxonomies', $plugin_admin, 'change_sort_taxonomies', 10, 2 );
+
 	}
 
 	/**

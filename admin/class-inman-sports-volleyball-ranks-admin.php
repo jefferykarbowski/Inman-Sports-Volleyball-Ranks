@@ -92,7 +92,7 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
         global $wpdb;
 
-        var_dump($sort_view_id);
+        $settings  = APTO_functions::get_sort_settings( $sort_view_id );
 
         $sort_list_table_rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}apto_sort_list WHERE sort_view_id=%d", $sort_view_id));
 
@@ -110,18 +110,13 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
         $rules = get_post_meta($sort_view_id - 1, '_rules');
 
-        $terms = [];
-        foreach ($rules[0]['taxonomy'] as $taxonomy) {
-            $terms = $taxonomy['terms'];
-        }
-
 
         $wpdb->insert(
             $previous_rankings,
             array(
                 'time' => current_time( 'mysql' ),
                 'sort_view_id' => $sort_view_id,
-                'tax_id' => $terms[0],
+                'tax_id' => $settings['_term_id'],
                 'rankings' => maybe_serialize($sort_list_table_rows_array),
             )
         );
@@ -227,6 +222,17 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         return $args;
     }
 
+
+    public function change_sort_order_tabs( $tabs, $sort_view_ID ) {
+        unset($tabs['auto']);
+        return $tabs;
+    }
+
+
+    public function change_sort_taxonomies($taxonomies, $sortID) {
+        $taxonomies = array('graduating_class');
+        return $taxonomies;
+    }
 
 
 }
