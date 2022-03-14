@@ -234,5 +234,14 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         return $taxonomies;
     }
 
+    public function add_additional_details_to_reorder_item($additional_details, $post_data) {
+        $graduating_class = get_the_terms($post_data->ID, 'graduating_class');
+        $national_rank = get_field( 'national_rank', $post_data->ID);
+        $class_rank = get_field( 'class_rank', $post_data->ID);
+        $additional_details .= ' | National Rank: ' . $national_rank . ' | Class Rank ('. $graduating_class[0]->name .'): ' . $class_rank;
+
+        return $additional_details;
+    }
+
 
 }

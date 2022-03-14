@@ -167,8 +167,9 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_filter( 'apto/admin/sort-order-tabs', $plugin_admin, 'change_sort_order_tabs', 10, 2 );
 
-        // filter apto/admin/sort-taxonomies
         $this->loader->add_filter( 'apto/admin/sort-taxonomies', $plugin_admin, 'change_sort_taxonomies', 10, 2 );
+
+        $this->loader->add_filter( 'apto/reorder_item_additional_details', $plugin_admin, 'add_additional_details_to_reorder_item', 10, 2 );
 
 	}
 
