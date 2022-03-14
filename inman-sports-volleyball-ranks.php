@@ -84,3 +84,16 @@ function run_inman_sports_volleyball_ranks() {
 
 }
 run_inman_sports_volleyball_ranks();
+
+
+/**
+ * The class responsible for upgrading the plugin.
+ */
+require_once  plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php';
+
+$apis_update_checker = Puc_v4_Factory::buildUpdateChecker(
+    'https://github.com/jefferykarbowski/Inman-Sports-Volleyball-Ranks/',
+    __file__,
+    'Inman-Sports-Volleyball-Ranks'
+);
+$apis_update_checker->getVcsApi()->enableReleaseAssets();
