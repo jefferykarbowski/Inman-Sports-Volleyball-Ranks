@@ -92,10 +92,17 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
         global $wpdb;
 
+        var_dump($sort_view_id);
+
         $sort_list_table_rows = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}apto_sort_list WHERE sort_view_id=%d", $sort_view_id));
 
         $sort_list_table_rows_array = array();
-        foreach ($sort_list_table_rows as $sort_list_table_row) {
+        foreach ($sort_list_table_rows as $key => $sort_list_table_row) {
+            if ($sort_view_id === 672) {
+                update_post_meta( $sort_list_table_row->object_id, 'national_rank', $key + 1 );
+            } else {
+                update_post_meta( $sort_list_table_row->object_id, 'class_rank', $key + 1 );
+            }
             $sort_list_table_rows_array[] = $sort_list_table_row->object_id;
         }
 

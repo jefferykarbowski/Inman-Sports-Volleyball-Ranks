@@ -77,7 +77,24 @@ class Inman_Sports_Volleyball_Ranks_Public {
 
 	}
 
+    /**
+     * Add the shortcode to get the player rankings
+     * @param $attr
+     * @return void
+     */
+    public function get_player_rank($attr) {
 
+        $a = shortcode_atts( array(
+            'player_id' => '',
+            'type' => 'national',
+            'previous' => false,
+        ), $atts );
+
+
+
+
+
+    }
 
 
 
