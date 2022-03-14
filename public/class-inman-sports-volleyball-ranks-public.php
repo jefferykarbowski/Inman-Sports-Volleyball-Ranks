@@ -133,9 +133,9 @@ class Inman_Sports_Volleyball_Ranks_Public {
             $date = date('m-d-Y', strtotime($rank['date']));
 
             if ($a['rank_type'] == 'national') {
-                echo $date . ': #' . $rank['rank'] . 'National Ranking';
+                echo $date . ': #' . $rank['rank'] . ' National Ranking';
             } else {
-                echo $date . ': #' . $rank['rank'] . 'Class of ' . $graduating_class[0] . ' Ranking';
+                echo $date . ': #' . $rank['rank'] . ' Class of ' . $graduating_class[0] . ' Ranking';
             }
 
             echo '</span>';
