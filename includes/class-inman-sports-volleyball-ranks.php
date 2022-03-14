@@ -182,9 +182,8 @@ class Inman_Sports_Volleyball_Ranks {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 
-        $this->loader->add_filter( 'wpmem_payment_button_args', $plugin_public, 'wpmem_adjust_payment_button' );
 
-        $this->loader->add_filter( 'wpmem_payment_form', $plugin_public, 'wpmem_adjust_payment_form' );
+
 
 	}
 
