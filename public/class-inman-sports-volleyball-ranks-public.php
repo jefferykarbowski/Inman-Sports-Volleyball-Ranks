@@ -107,6 +107,8 @@ class Inman_Sports_Volleyball_Ranks_Public {
         $rankings = unserialize($rankings);
         $rankings = array_reverse($rankings);
 
+        ob_start();
+
         echo '<ul class="elementor-icon-list-items ranking-list">';
 
         foreach ($rankings as $i => $rank) {
@@ -141,6 +143,8 @@ class Inman_Sports_Volleyball_Ranks_Public {
         }
 
         echo '</ul>';
+
+        return ob_get_clean();
 
     }
 

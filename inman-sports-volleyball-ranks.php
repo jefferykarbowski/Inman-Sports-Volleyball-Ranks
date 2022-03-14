@@ -16,7 +16,7 @@
  * Plugin Name:       Inman Sports Volleyball Ranks
  * Plugin URI:        https://inmansports.com
  * Description:       Shortcodes to display and manage volleyball ranks.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Andrew Inman
  * Author URI:        https://inmansports.com
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'INMAN_SPORTS_VOLLEYBALL_RANKS_VERSION', '1.0.6' );
+define( 'INMAN_SPORTS_VOLLEYBALL_RANKS_VERSION', '1.0.7' );
 
 //global $vball_db_version;
 //$vball_db_version = '1.0';
