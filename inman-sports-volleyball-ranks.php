@@ -86,6 +86,35 @@ function run_inman_sports_volleyball_ranks() {
 run_inman_sports_volleyball_ranks();
 
 
+
+function has_player_access() {
+    if ( is_user_logged_in() ) {
+        $user = wp_get_current_user();
+        if ( in_array( 'administrator', (array) $user->roles ) ) {
+            return true;
+        }
+        if (wpmem_user_has_access(880, $user->ID)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function has_coach_scout_access() {
+    if ( is_user_logged_in() ) {
+        $user = wp_get_current_user();
+        if ( in_array( 'administrator', (array) $user->roles ) ) {
+            return true;
+        }
+        if (wpmem_user_has_access(879, $user->ID)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 /**
  * The class responsible for upgrading the plugin.
  */
