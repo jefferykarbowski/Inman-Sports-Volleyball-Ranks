@@ -37,8 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'INMAN_SPORTS_VOLLEYBALL_RANKS_VERSION', '1.0.5' );
 
-global $vball_db_version;
-$vball_db_version = '1.0';
+//global $vball_db_version;
+//$vball_db_version = '1.0';
 
 
 /**

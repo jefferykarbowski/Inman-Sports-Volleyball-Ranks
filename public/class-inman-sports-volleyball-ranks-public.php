@@ -82,19 +82,68 @@ class Inman_Sports_Volleyball_Ranks_Public {
      * @param $attr
      * @return void
      */
-    public function get_player_rank($attr) {
+    public function player_previous_ranks($atts) {
 
         $a = shortcode_atts( array(
-            'player_id' => '',
-            'type' => 'national',
-            'previous' => false,
+            'rank_type' => 'national',
         ), $atts );
 
+        global $post;
 
+        $player_id = $post->ID;
 
+        $graduating_class = wp_get_post_terms($player_id, 'graduating_class', array("fields" => "names"));
 
+        if ($a['rank_type'] == 'national') {
+            $rankings = get_post_meta($player_id, 'national_rank_history', true);
+        } else {
+            $rankings = get_post_meta($player_id, 'class_rank_history', true);
+        }
+
+        if (empty($rankings)) {
+            return;
+        }
+
+        $rankings = unserialize($rankings);
+        $rankings = array_reverse($rankings);
+
+        echo '<ul class="elementor-icon-list-items ranking-list">';
+
+        foreach ($rankings as $i => $rank) {
+
+            echo '<li class="elementor-icon-list-item">';
+            echo '<span class="elementor-icon-list-icon">';
+
+            if ($rankings[$i+1]['rank']) {
+                if ($rank['rank'] > $rankings[$i + 1]['rank']) {
+                    echo '<i aria-hidden="true" class="fas fa-angle-double-down"></i>';
+                } elseif ($rank['rank'] < $rankings[$i + 1]['rank']) {
+                    echo '<i aria-hidden="true" class="fas fa-angle-double-up"></i>';
+                } else {
+                    echo '<i class="fas fa-arrows-alt-h"></i>';
+                }
+            }
+
+            echo '</span>';
+            echo '<span class="elementor-icon-list-text">';
+
+            // format $rank['date'] to m-d-Y
+            $date = date('m-d-Y', strtotime($rank['date']));
+
+            if ($a['rank_type'] == 'national') {
+                echo $date . ': #' . $rank['rank'] . 'National Ranking';
+            } else {
+                echo $date . ': #' . $rank['rank'] . 'Class of ' . $graduating_class[0] . ' Ranking';
+            }
+
+            echo '</span>';
+            echo '</li>';
+        }
+
+        echo '</ul>';
 
     }
+
 
 
 

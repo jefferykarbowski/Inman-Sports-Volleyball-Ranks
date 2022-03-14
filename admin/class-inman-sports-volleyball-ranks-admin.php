@@ -100,8 +100,37 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         foreach ($sort_list_table_rows as $key => $sort_list_table_row) {
             if ($sort_view_id === 672) {
                 update_post_meta( $sort_list_table_row->object_id, 'national_rank', $key + 1 );
+                $national_rank_history = get_post_meta($sort_list_table_row->object_id, 'national_rank_history', true);
+                if (!$national_rank_history) {
+                    $national_rank_history = array();
+                } else {
+                    $national_rank_history = unserialize($national_rank_history);
+                }
+                if (count($national_rank_history) > 4) {
+                    $national_rank_history = array_slice($national_rank_history, -4);
+                }
+                $national_rank_history[] = array(
+                    'date' => date('Y-m-d H:i:s'),
+                    'rank' => $key + 1
+                );
+                update_post_meta( $sort_list_table_row->object_id, 'national_rank_history', serialize($national_rank_history) );
+
             } else {
                 update_post_meta( $sort_list_table_row->object_id, 'class_rank', $key + 1 );
+                $class_rank_history = get_post_meta($sort_list_table_row->object_id, 'class_rank_history', true);
+                if (!$class_rank_history) {
+                    $class_rank_history = array();
+                } else {
+                    $class_rank_history = unserialize($class_rank_history);
+                }
+                if (count($class_rank_history) > 4) {
+                    $class_rank_history = array_slice($class_rank_history, -4);
+                }
+                $class_rank_history[] = array(
+                    'date' => date('Y-m-d H:i:s'),
+                    'rank' => $key + 1
+                );
+                update_post_meta( $sort_list_table_row->object_id, 'class_rank_history', serialize($class_rank_history) );
             }
             $sort_list_table_rows_array[] = $sort_list_table_row->object_id;
         }

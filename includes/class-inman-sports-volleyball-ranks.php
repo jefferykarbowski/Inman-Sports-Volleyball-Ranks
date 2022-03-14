@@ -187,7 +187,7 @@ class Inman_Sports_Volleyball_Ranks {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-        $this->loader->add_shortcode( 'player_rank', $plugin_public, 'get_player_rank' );
+        $this->loader->add_shortcode( 'player_previous_ranks', $plugin_public, 'player_previous_ranks' );
 
 
 	}
