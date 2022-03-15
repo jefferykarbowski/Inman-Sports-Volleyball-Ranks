@@ -189,6 +189,8 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_shortcode( 'player_previous_ranks', $plugin_public, 'player_previous_ranks' );
 
+        $this->loader->add_filter( 'acfe/form/submit/post/form=create-player-news', $plugin_public, 'create_player_news_post_args', 10, 5 );
+
 
 	}
 

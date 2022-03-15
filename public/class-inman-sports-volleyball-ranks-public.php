@@ -151,4 +151,23 @@ class Inman_Sports_Volleyball_Ranks_Public {
 
 
 
+
+    public function create_player_news_post_args($post_id, $type, $args, $form, $action) {
+
+        $featured_image_id = get_field('featured_image', $post_id);
+        if( $featured_image_id ){
+            add_post_meta($post_id, '_thumbnail_id', $featured_image_id);
+        }
+
+        $user_id = get_current_user_id();
+        $player_affiliation = get_field('player', 'user_' . $user_id);
+
+
+        wp_set_post_categories($post_id, array(42), true);
+
+        wp_set_post_terms($post_id, $player_affiliation, 'player_affiliation');
+
+    }
+
+
 }
