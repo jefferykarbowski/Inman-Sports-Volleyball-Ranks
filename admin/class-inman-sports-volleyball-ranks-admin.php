@@ -159,6 +159,7 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         global $wpmem, $wpmem_pp_sub;
 
         $membership_type = get_field('membership_type', 'user_'.$fields['ID']);
+        $player_affiliation = get_field('player', 'user_'.$fields['ID']);
 
         $product_meta = '';
 
@@ -174,6 +175,10 @@ class Inman_Sports_Volleyball_Ranks_Admin {
             $subscription_num = '1';
             $subscription_per = 'm';
             $product_meta = 'player';
+            if ($player_affiliation) {
+                update_field( 'player_claimed', 1, $player_affiliation);
+                update_field('player_claimed_user', get_user_by('id', $fields['ID']), $player_affiliation);
+            }
         }
 
         wpmem_set_user_product( $product_meta, $fields['ID'] );
