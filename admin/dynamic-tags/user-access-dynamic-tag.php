@@ -22,7 +22,7 @@ class Elementor_Dynamic_Tag_Random_Number extends \Elementor\Core\DynamicTags\Ta
      * @return string Dynamic tag name.
      */
     public function get_name() {
-        return 'random-number';
+        return 'uaer-access';
     }
 
     /**
@@ -35,7 +35,7 @@ class Elementor_Dynamic_Tag_Random_Number extends \Elementor\Core\DynamicTags\Ta
      * @return string Dynamic tag title.
      */
     public function get_title() {
-        return esc_html__( 'Random Number', 'elementor-random-number-dynamic-tag' );
+        return esc_html__( 'User Access', 'elementor-random-number-dynamic-tag' );
     }
 
     /**
@@ -62,9 +62,6 @@ class Elementor_Dynamic_Tag_Random_Number extends \Elementor\Core\DynamicTags\Ta
      */
     public function get_categories() {
         return [
-            \Elementor\Modules\DynamicTags\Module::URL_CATEGORY,
-            \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY,
-            \Elementor\Modules\DynamicTags\Module::NUMBER_CATEGORY,
             \Elementor\Modules\DynamicTags\Module::POST_META_CATEGORY
         ];
     }
@@ -79,7 +76,17 @@ class Elementor_Dynamic_Tag_Random_Number extends \Elementor\Core\DynamicTags\Ta
      * @return void
      */
     public function render() {
-        echo rand();
+
+        global $post;
+        $user_id = get_current_user_id();
+
+        $user_access = get_field('player', 'user_'.$user_id);
+        if ( $user_access == $post->ID ) {
+            echo 'Yes';
+        } else {
+            echo 'No';
+        }
     }
+
 
 }

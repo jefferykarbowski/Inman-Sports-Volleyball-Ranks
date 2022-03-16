@@ -278,9 +278,9 @@ class Inman_Sports_Volleyball_Ranks_Admin {
     }
 
 
-    public function register_random_number_dynamic_tag($dynamic_tags_manager) {
+    public function register_user_access_dynamic_tag($dynamic_tags_manager) {
 
-        require_once( __DIR__ . '/dynamic-tags/random-number-dynamic-tag.php');
+        require_once( __DIR__ . '/dynamic-tags/user-access-dynamic-tag.php');
         $dynamic_tags_manager->register( new \Elementor_Dynamic_Tag_Random_Number );
 
     }

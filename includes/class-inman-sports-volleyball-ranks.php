@@ -171,7 +171,7 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_filter( 'apto/reorder_item_additional_details', $plugin_admin, 'add_additional_details_to_reorder_item', 10, 2 );
 
-        $this->loader->add_action( 'elementor/dynamic_tags/register', $plugin_admin, 'register_random_number_dynamic_tag', 20 );
+        $this->loader->add_action( 'elementor/dynamic_tags/register', $plugin_admin, 'register_user_access_dynamic_tag', 20 );
 
         // add action elementor/query
         $this->loader->add_action( 'elementor/query/player_news', $plugin_admin, 'update_player_news_query', 10, 2 );
