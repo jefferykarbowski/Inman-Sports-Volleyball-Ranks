@@ -20,6 +20,7 @@
  * @subpackage Inman_Sports_Volleyball_Ranks/public
  * @author     Andrew Inman <andy@inmansports.com>
  */
+
 class Inman_Sports_Volleyball_Ranks_Public {
 
 	/**
@@ -124,13 +125,15 @@ class Inman_Sports_Volleyball_Ranks_Public {
                 } else {
                     echo '<i class="fas fa-arrows-alt-h"></i>';
                 }
+            } else {
+                echo '<i class="fas fa-transporter-empty"></i>';
             }
 
             echo '</span>';
             echo '<span class="elementor-icon-list-text">';
 
             // format $rank['date'] to m-d-Y
-            $date = date('m-d-Y', strtotime($rank['date']));
+            $date = date('m/d/Y', strtotime($rank['date']));
 
             if ($a['rank_type'] == 'national') {
                 echo $date . ': #' . $rank['rank'] . ' National Ranking';
@@ -162,10 +165,12 @@ class Inman_Sports_Volleyball_Ranks_Public {
         $user_id = get_current_user_id();
         $player_affiliation = get_field('player', 'user_' . $user_id);
 
+        // add_post_meta($post_id, 'player_affiliation', $player_affiliation);
+        $player = get_field('player_affiliation', $post_id, false);
+        $player[] = $player_affiliation;
+        update_field('player_affiliation', $player, $post_id);
 
         wp_set_post_categories($post_id, array(42), true);
-
-        wp_set_post_terms($post_id, $player_affiliation, 'player_affiliation');
 
     }
 

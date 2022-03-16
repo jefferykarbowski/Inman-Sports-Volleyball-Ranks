@@ -123,8 +123,8 @@ class Inman_Sports_Volleyball_Ranks_Admin {
                 } else {
                     $class_rank_history = unserialize($class_rank_history);
                 }
-                if (count($class_rank_history) > 4) {
-                    $class_rank_history = array_slice($class_rank_history, -4);
+                if (count($class_rank_history) > 9) {
+                    $class_rank_history = array_slice($class_rank_history, -9);
                 }
                 $class_rank_history[] = array(
                     'date' => date('Y-m-d H:i:s'),
@@ -275,6 +275,32 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         $additional_details .= ' | National Rank: ' . $national_rank . ' | Class Rank ('. $graduating_class[0]->name .'): ' . $class_rank;
 
         return $additional_details;
+    }
+
+
+    public function register_random_number_dynamic_tag($dynamic_tags_manager) {
+
+        require_once( __DIR__ . '/dynamic-tags/random-number-dynamic-tag.php');
+        $dynamic_tags_manager->register( new \Elementor_Dynamic_Tag_Random_Number );
+
+    }
+
+    public function update_player_news_query($query) {
+
+        $meta_query = $query->get( 'meta_query' );
+
+        if ( ! $meta_query ) {
+            $meta_query = [];
+        }
+
+        $meta_query[] = [
+            'key' => 'player_affiliation',
+            'value' => '"' . get_the_ID() . '"',
+            'compare' => 'LIKE'
+        ];
+
+        $query->set( 'meta_query', $meta_query );
+
     }
 
 
