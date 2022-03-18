@@ -41,6 +41,24 @@ define( 'INMAN_SPORTS_VOLLEYBALL_RANKS_VERSION', '1.1.1' );
 //$vball_db_version = '1.0';
 
 
+
+
+function is_user_pending() {
+    global $user_ID;
+    $pending = get_user_meta( $user_ID, 'exp_type', true );
+    return ( $pending == 'pending' ) ? true : false;
+}
+
+
+add_action( 'get_header', 'inman_sports_volleyball_ranks_do_acf_form_head', 1 );
+function inman_sports_volleyball_ranks_do_acf_form_head() {
+    if ( is_page( 'registration' ) ) {
+        acf_form_head();
+    }
+
+}
+
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-inman-sports-volleyball-ranks-activator.php

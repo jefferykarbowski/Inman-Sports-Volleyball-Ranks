@@ -76,6 +76,37 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
 	}
 
+
+    // add a submenu page under the post_type player menu
+    public function add_import_menu_item() {
+        add_submenu_page(
+            'edit.php?post_type=player',
+            'Import Players',
+            'Import Players',
+            'manage_options',
+            'player-import',
+            array( $this, 'import_players_page_callback' ),
+            -2
+        );
+    }
+
+
+    public function import_players_page_callback() {
+
+        // get all players
+        $players = get_posts(array(
+            'post_type' => 'player',
+            'posts_per_page' => -1
+        ));
+
+        require_once( __DIR__ . '/import-players.php');
+
+        import_players($players);
+
+    }
+
+
+
     public function rename_admin_menu_items($translated_text, $text, $domain ) {
 
         switch ( $translated_text ) {
@@ -224,12 +255,12 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         // Build and output the form so it can be submitted.
         echo '<form name="paypalform" action="' . $wpmem_pp_sub->paypal_url . '" method="post">';
         foreach ( $button_args as $key => $val ) {
-            echo '<input type="hidden" name="' . $key . '" value="' . $val . '">';
+            echo '<input type="text" name="' . $key . '" value="' . $val . '">';
         }
         echo '</form>';
 
         // Submit the form with JS.
-        echo '<script>document.paypalform.submit();</script>';
+        // echo '<script>document.paypalform.submit();</script>';
 
         // Exit so no screen output.
         exit();
@@ -281,7 +312,7 @@ class Inman_Sports_Volleyball_Ranks_Admin {
     public function register_user_access_dynamic_tag($dynamic_tags_manager) {
 
         require_once( __DIR__ . '/dynamic-tags/user-access-dynamic-tag.php');
-        $dynamic_tags_manager->register( new \Elementor_Dynamic_Tag_Random_Number );
+        $dynamic_tags_manager->register( new \Elementor_Dynamic_Tag_User_Access );
 
     }
 
@@ -302,6 +333,11 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         $query->set( 'meta_query', $meta_query );
 
     }
+
+
+
+
+
 
 
 }

@@ -176,6 +176,12 @@ class Inman_Sports_Volleyball_Ranks {
         // add action elementor/query
         $this->loader->add_action( 'elementor/query/player_news', $plugin_admin, 'update_player_news_query', 10, 2 );
 
+        // add action admin_menu with the callback function of add_import_menu_item
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_import_menu_item' );
+
+
+
+
 	}
 
 	/**

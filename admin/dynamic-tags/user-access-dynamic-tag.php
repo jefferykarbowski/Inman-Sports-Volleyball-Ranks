@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Elementor_Dynamic_Tag_Random_Number extends \Elementor\Core\DynamicTags\Tag {
+class Elementor_Dynamic_Tag_User_Access extends \Elementor\Core\DynamicTags\Tag {
 
     /**
      * Get dynamic tag name.
