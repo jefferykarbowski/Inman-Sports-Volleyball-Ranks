@@ -5,7 +5,7 @@ function import_players($players)
 
     // Add instructions to how to format the csv file
     $instructions = '<p>The csv file must be in the following format:</p>';
-    $instructions .= '<p>First Name, Last Name, Height, Position, State, High School, Graduating Class, Club Team';
+    $instructions .= '<p>First Name, Last Name, Position, Club Team, High School, State, Graduating Class, UA Camp, Height, Star Rating';
 
 
     echo $instructions;
@@ -28,12 +28,14 @@ function import_players($players)
                 $players[] = array(
                     'first_name' => $data[0],
                     'last_name' => $data[1],
-                    'height' => $data[2],
-                    'position' => $data[3],
-                    'state' => $data[4],
-                    'high_school' => $data[5],
+                    'position' => $data[2],
+                    'club_team' => $data[3],
+                    'high_school' => $data[4],
+                    'state' => $data[5],
                     'graduating_class' => $data[6],
-                    'club_team' => $data[7]
+                    'ua_camp' => $data[7],
+                    'height' => $data[8],
+                    'star_rating' => $data[9]
                 );
             }
             $row++;
@@ -41,12 +43,32 @@ function import_players($players)
         fclose($handle);
 
         foreach ($players as $player) {
-            $player_id = wp_insert_post(array(
-                'post_title' => $player['first_name'] . ' ' . $player['last_name'],
-                'post_type' => 'player',
-                'post_status' => 'publish'
-            ));
+
+            $player_already_exists = false;
+
+            $existing_player = post_exists($player['first_name'] . ' ' . $player['last_name'],'','','player');
+
+            if ($existing_player) {
+                // check to see if the player is from the same state
+                $player_state = get_post_meta($existing_player, 'state', true);
+                if ($player_state == $player['state']) {
+                    $player_already_exists = true;
+                }
+            }
+
+            if ($player_already_exists) {
+                $player_id = $existing_player;
+            } else  {
+                $player_id = wp_insert_post(array(
+                    'post_title' => $player['first_name'] . ' ' . $player['last_name'],
+                    'post_type' => 'player',
+                    'post_status' => 'publish'
+                ));
+            }
+
             update_post_meta($player_id, 'height', $player['height']);
+            update_post_meta($player_id, 'star_rating', $player['star_rating']);
+            update_post_meta($player_id, 'ua_camp', $player['ua_camp']);
             // add the position, state, high_school, graduating_class, and club_team as a taxonomy terms
             wp_set_object_terms($player_id, $player['position'], 'position', false);
             wp_set_object_terms($player_id, $player['state'], 'state', false);
