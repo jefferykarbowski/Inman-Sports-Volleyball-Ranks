@@ -68,6 +68,10 @@ class Inman_Sports_Volleyball_Ranks_Public
 
         wp_enqueue_style('tooltipster-css', 'https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/css/tooltipster.bundle.css');
 
+        wp_enqueue_style( 'font-awesome-free', '//use.fontawesome.com/releases/v5.6.3/css/all.css' );
+
+
+
     }
 
     /**
@@ -657,12 +661,15 @@ class Inman_Sports_Volleyball_Ranks_Public
         }
 
         echo '</div>';
+
         return ob_get_clean();
 
     }
 
     public function add_player_link_popups_to_content($content)
     {
+
+        $memberships = wpmem_get_user_products();
 
         if ((is_singular()) && (is_main_query())) {
             $string = $content;
@@ -684,7 +691,12 @@ class Inman_Sports_Volleyball_Ranks_Public
                 $player_recruiting_school = get_the_terms($player_id, 'recruiting_school');
                 $player_recruiting_school = $player_recruiting_school[0]->name;
 
-                $player_rating = get_field('star_rating', $player_id);
+                if ($memberships['premium-access']) {
+                    $player_rating = get_field('star_rating', $player_id);
+                } else {
+                    $player_rating = 'locked';
+                }
+
 
                 $string = str_replace($match, '<a href="' . $matches[1][$key] . '" data-id="' . $matches[2][$key] . '" class="player-link-popup" data-position="' . $player_position . '" data-club_team="' . $player_club_team . '" data-recruiting_school="' . $player_recruiting_school . '" data-rating="' . $player_rating . '">', $string);
             }

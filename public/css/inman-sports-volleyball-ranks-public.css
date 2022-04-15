@@ -74,8 +74,10 @@
     border-top-color: #E60E16;
 }
 
-.posts-data-table .elementor-star-rating i,
-.player-quick-box i {
+.posts-data-table .elementor-star-rating i.elementor-star-full,
+.posts-data-table .elementor-star-rating i.elementor-star-empty,
+.player-quick-box i.elementor-star-full,
+.player-quick-box i.elementor-star-empty {
     box-sizing: border-box;
     color: rgb(231, 231, 231);
     cursor: default;

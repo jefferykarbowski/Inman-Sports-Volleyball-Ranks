@@ -19,6 +19,11 @@ jQuery(document).ready(function ($) {
     })
 
     function createStarRating(rating) {
+
+        if (rating === 'locked') {
+            return '<i aria-hidden="true" class="fa fa-lock" style="color:#fff;"></i>'
+        }
+
         let starRating = ''
         for (let i = 0; i < 5; i++) {
             if (i < rating) {
