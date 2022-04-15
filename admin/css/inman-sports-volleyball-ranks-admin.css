@@ -1,4 +1,5 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+.taxonomy-ua_next_camp .term-name-wrap,
+.taxonomy-ua_next_camp .term-slug-wrap,
+.taxonomy-ua_next_camp .term-description-wrap,
+.taxonomy-ua_next_camp .term-parent-wrap
+{display: none;}

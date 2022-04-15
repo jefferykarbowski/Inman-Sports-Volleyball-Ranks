@@ -27,6 +27,9 @@
  * @subpackage Inman_Sports_Volleyball_Ranks/includes
  * @author     Andrew Inman <andy@inmansports.com>
  */
+
+
+
 class Inman_Sports_Volleyball_Ranks {
 
 	/**
@@ -173,13 +176,21 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_action( 'elementor/dynamic_tags/register', $plugin_admin, 'register_user_access_dynamic_tag', 20 );
 
-        // add action elementor/query
         $this->loader->add_action( 'elementor/query/player_news', $plugin_admin, 'update_player_news_query', 10, 2 );
 
-        // add action admin_menu with the callback function of add_import_menu_item
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_import_menu_item' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu_items' );
 
+        $this->loader->add_filter( 'acf/load_field/name=recruiting_school', $plugin_admin, 'set_recruiting_school_default_value');
 
+        $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_meta_boxes' );
+
+        $this->loader->add_action( 'query_vars', $plugin_admin, 'add_query_vars' );
+
+        $this->loader->add_action( 'init', $plugin_admin, 'add_endpoints' );
+
+        $this->loader->add_action( 'template_redirect', $plugin_admin, 'template_redirect' );
+
+        $this->loader->add_filter( 'acf/fields/relationship/result/name=player_affiliation', $plugin_admin, 'update_player_affiliation_result_value', 10, 4 );
 
 
 	}
@@ -200,8 +211,39 @@ class Inman_Sports_Volleyball_Ranks {
 
         $this->loader->add_shortcode( 'player_previous_ranks', $plugin_public, 'player_previous_ranks' );
 
+        $this->loader->add_shortcode( 'player_video_gallery', $plugin_public, 'player_video_gallery_function' );
+
+        $this->loader->add_shortcode( 'premium_content', $plugin_public, 'premium_content_shortcode_function' );
+
         $this->loader->add_action( 'acfe/form/submit/post/action=create-player-news', $plugin_public, 'create_player_news_post_args', 10, 5 );
 
+        $this->loader->add_filter( 'posts_table_acf_value', $plugin_public, 'posts_table_acf_value', 10, 3 );
+
+        $this->loader->add_filter( 'posts_table_data_custom_taxonomy_recruiting_school', $plugin_public, 'posts_table_data_custom_taxonomy_recruiting_school', 10, 2 );
+
+        $this->loader->add_action( 'acfe/form/submit/post/form=create-player', $plugin_public, 'create_player_function', 10, 5);
+
+        $this->loader->add_shortcode( 'assign_user_to_player', $plugin_public, 'assign_user_to_player_shortcode' );
+
+        $this->loader->add_action( 'acfe/form/submit/form=claim-your-player', $plugin_public, 'claim_your_player_submit_function', 10, 2 );
+
+        $this->loader->add_filter( 'acf/fields/post_object/query/name=player', $plugin_public, 'player_post_object_query', 10, 3 );
+
+        $this->loader->add_action( 'wp_loaded', $plugin_public, 'add_multiple_to_cart_action', 20 );
+
+        $this->loader->add_shortcode( 'claimed_player_success', $plugin_public, 'claimed_player_success_shortcode' );
+
+        $this->loader->add_shortcode( 'player_search_filters', $plugin_public, 'player_search_filters_shortcode' );
+
+        $this->loader->add_shortcode( 'player_news_success', $plugin_public, 'player_news_success_shortcode' );
+
+        $this->loader->add_shortcode( 'posts_table_for_query', $plugin_public, 'posts_table_for_query_shortcode' );
+
+        $this->loader->add_shortcode( 'ua_next_camp_dates', $plugin_public, 'ua_next_camp_dates_shortcode' );
+
+        $this->loader->add_shortcode( 'players_mentioned_cards', $plugin_public, 'players_mentioned_cards_shortcode' );
+
+        $this->loader->add_filter( 'the_content', $plugin_public, 'add_player_link_popups_to_content' );
 
 	}
 

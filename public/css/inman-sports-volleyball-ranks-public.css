@@ -1,4 +1,392 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.ranking-list .fa-angle-double-down {color: rgb(230, 14, 22)}
+.ranking-list .fa-angle-double-up {color: #68CB37}
+
+
+#elementor-tab-title-2601 i:before {font-size: 20px;}
+
+.dataTables_wrapper table td, .dataTables_wrapper table th {border: none}
+
+.tooltipster-base.tooltipster-sidetip .tooltipster-box a {
+    color: #fff;
+    display: block;
+    position: relative;
+    z-index: 100
+}
+
+.tooltipster-base.tooltipster-sidetip .tooltipster-box {
+    background: #E60E16;
+    border-color: #E60E16;
+}
+
+.players-mentioned-cards .player-card > .player-quick-box {
+    position: relative;
+}
+
+.players-mentioned-cards a.player-card {
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    display: block;
+    padding: 5px
+}
+
+.players-mentioned-cards a.player-card h3 {
+    color: var( --e-global-color-primary );
+    font-family: "Teko", Sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.players-mentioned-cards a.player-card p {
+    color: var( --e-global-color-text );
+    font-family: "Roboto", Sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.players-mentioned-cards a.player-card:hover {
+    background: var( --e-global-color-fbb79be )
+}
+
+.tooltipster-base.tooltipster-sidetip .tooltipster-box:after,
+.players-mentioned-cards .player-card > .player-quick-box::after
+{
+    content: '\f054';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    color: white;
+    border-left: 1px dotted white;
+    padding: 20px;
+    height: 60px;
+    margin-top: -30px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900
+}
+
+.players-mentioned-cards .player-card > .player-quick-box::after {
+    color:red;
+    border-color: red
+}
+
+.tooltipster-base.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background,
+.tooltipster-base.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border {
+    border-top-color: #E60E16;
+}
+
+.posts-data-table .elementor-star-rating i,
+.player-quick-box i {
+    box-sizing: border-box;
+    color: rgb(231, 231, 231);
+    cursor: default;
+    display: inline-block;
+    font-family: eicons;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    hyphens: manual;
+    line-height: 30px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.posts-data-table .elementor-star-rating i.elementor-star-full::before,
+.posts-data-table .elementor-star-rating i.elementor-star-empty::before,
+.player-quick-box i.elementor-star-full::before,
+.player-quick-box i.elementor-star-empty::before {
+    content: "\002605";
+    display: block;
+    font-size: inherit;
+    font-family: inherit;
+    position: absolute;
+    overflow: hidden;
+    color: #E60E16;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    color: rgb(230, 14, 22);
+    content: "\002605";
+    cursor: default;
+    display: block;
+    font-family: eicons;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    hyphens: manual;
+    left: 0px;
+    line-height: 30px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 0px;
+
+}
+
+
+.player-quick-box i.elementor-star-full::before,
+.player-quick-box i.elementor-star-empty::before {
+    color: #fff;
+}
+
+.players-mentioned-cards .player-quick-box i.elementor-star-full::before {
+    color: rgb(230, 14, 22);
+}
+
+.posts-data-table .elementor-star-rating i.elementor-star-empty::before,
+.player-quick-box i.elementor-star-empty::before {
+    color: rgb(231, 231, 231);
+}
+
+
+.player-quick-box i.elementor-star-empty::before {
+    color: rgba(231, 231, 231, 0);
+}
+
+/* Player Mentioned Cards */
+.players-mentioned-cards .player-quick-box {
+    display: flex;
+    margin: 20px 0
+}
+.players-mentioned-cards .player-image {width: 100px; height:100px; border-radius: 50%; overflow: hidden; margin-right:10px}
+.players-mentioned-cards .player-info h3, .players-mentioned-cards .player-info p {margin: 0; padding: 0}
+
+
+.col-ua_next_camp {display: none !important;}
+
+.player-search-filters {display: flex; }
+.player-search-filters > div {margin: 0 10px 10px 0}
+
+.embed__container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+}
+
+.embed__container {
+    position: relative;
+    padding-bottom: 56%;
+    width: 100%;
+    text-align: left;
+    background-color: #000000;
+}
+
+.embed__container iframe {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+}
+
+#player {
+    width: 100%;
+}
+
+.owl-nav > div {
+    margin-top: -20px;
+    position: absolute;
+    top: 45%;
+    color: #d8d8d8;
+    padding: 0px;
+    width: 46px;
+    display: initial;
+    height: 46px;
+    border-radius: 50px;
+    background: #060606a8;
+}
+
+.owl-nav > div:hover {
+    color: #ffffff;
+    background: #000000;
+}
+
+.owl-nav > div.disabled {
+    color: #ffffff00;
+    background: #63636300;
+}
+
+.owl-nav > div.disabled {
+    color: #ffffff00;
+    background: #63636300;
+}
+
+.owl-nav i {
+    font-size: 20px;
+    margin: 13px 18px;
+}
+
+.owl-nav .owl-prev {
+    left: -23px;
+}
+
+.owl-nav .owl-prev i:hover {
+    transition: all 0.3s ease-in-out;
+}
+
+.owl-nav .owl-next i:hover {
+    transition: all 0.3s ease-in-out;
+}
+
+.owl-nav .owl-next {
+    right: -23px;
+}
+
+
+.owl-carousel .owl-item .video-thumb.active:before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: screen;
+    left: 0;
+    top: 0;
+    background: rgba(230, 14, 22, 0.75);
+    z-index: 1;
+    transition: all 250ms ease-out;
+}
+
+.owl-carousel .owl-item .video-thumb:not(.active):hover:before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: screen;
+    left: 0;
+    top: 0;
+    background: rgba(247, 148, 30, 0.30);
+    z-index: 1;
+    transition: all 1s ease-out;
+}
+
+.video-thumb:not(.active):hover:before {
+    background: rgba(247, 148, 30, 0.30);
+}
+
+.video-thumb:after {
+    content: "\f144";
+    font-family: "Font Awesome 5 Free";
+    top: 50%;
+    left: 50%;
+    margin: -0.458em 0 0 -0.500em;
+    color: rgba(255, 255, 255, 0);
+    font-size: 2em;
+    line-height: 1;
+    position: absolute;
+    font-weight: 900;
+    transition: all 250ms ease-out;
+}
+
+.video-thumb.active:after {
+    color: rgba(255, 255, 255, 1);
+}
+
+.owl-carousel .owl-item img {
+    position: relative;
+}
+
+#player .ytp-expand-pause-overlay .ytp-pause-overlay {
+    display: none !important;
+}
+
+#playerWrap {
+    display: inline-block;
+    position: relative;
+}
+
+#playerWrap.shown::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 64px 64px;
+    background-image: url(data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgNTEwIDUxMCI+PHBhdGggZD0iTTI1NSAxMDJWMEwxMjcuNSAxMjcuNSAyNTUgMjU1VjE1M2M4NC4xNSAwIDE1MyA2OC44NSAxNTMgMTUzcy02OC44NSAxNTMtMTUzIDE1My0xNTMtNjguODUtMTUzLTE1M0g1MWMwIDExMi4yIDkxLjggMjA0IDIwNCAyMDRzMjA0LTkxLjggMjA0LTIwNC05MS44LTIwNC0yMDQtMjA0eiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==);
+}
+
+.loading__text__player {
+    left: 50%;
+    top: 50%
+}
+
+
+.MultiCheckBox {
+    border: 1px solid #e2e2e2;
+    padding: 5px;
+    border-radius: 4px;
+    background: white;
+}
+
+.MultiCheckBox .k-icon {
+    font-size: 15px;
+    float: right;
+    font-weight: bolder;
+    margin-top: -7px;
+    height: 10px;
+    width: 14px;
+    color: #787878;
+}
+
+.MultiCheckBoxDetail {
+    background: #fff;
+    display: none;
+    position: absolute;
+    border: 1px solid #e2e2e2;
+    overflow-y: hidden;
+    z-index: 100;
+}
+
+.MultiCheckBoxDetailBody {
+    overflow-y: scroll;
+}
+
+.MultiCheckBoxDetail .cont {
+    clear: both;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.MultiCheckBoxDetail .cont:hover {
+    background-color: #cfcfcf;
+}
+
+.MultiCheckBoxDetailBody > div > div {
+    float: left;
+    padding-right: 10px;
+}
+
+.MultiCheckBoxDetail > div > div:nth-child(1) {
+
+}
+
+.MultiCheckBoxDetailHeader {
+    overflow: hidden;
+    position: relative;
+    height: 28px;
+    background-color: #3d3d3d;
+}
+
+.MultiCheckBoxDetailHeader > input {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+}
+
+.MultiCheckBoxDetailHeader > div {
+    position: absolute;
+    top: 5px;
+    left: 24px;
+    color: #fff;
+}

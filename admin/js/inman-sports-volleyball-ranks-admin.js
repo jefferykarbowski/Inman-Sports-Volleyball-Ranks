@@ -1,32 +1,50 @@
-(function( $ ) {
-	'use strict';
+jQuery(document).ready(function ($) {
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	$('.taxonomy-ua_next_camp div[data-name=date] input, .taxonomy-ua_next_camp div[data-name=city] input, .taxonomy-ua_next_camp div[data-name=state] input').on('change', function(e){
 
-})( jQuery );
+		let date = $('div[data-name=date]').find('.input.hasDatepicker').val()
+		let city = $('div[data-name=city]').find('.acf-input-wrap > input').val()
+		let state = $('div[data-name=state]').find('.acf-input-wrap > input').val()
+
+		$('input#tag-name').val(date + ' - ' + city + ', ' + state)
+
+	})
+
+	// on #create_player_with_ajax submit, do ajax request and return response
+	$('.btn-create-player').on('click', function(e){
+
+		e.preventDefault()
+
+		let image = $('#create_player_with_ajax div[data-name=image] input')
+		let first_name = $('#create_player_with_ajax div[data-name=first_name] input')
+		let last_name = $('#create_player_with_ajax div[data-name=last_name] input')
+
+
+		let data = {
+			action: 'create_player_with_ajax',
+			image: $(image).val(),
+			first_name: $(first_name).val(),
+			last_name: $(last_name).val(),
+
+		}
+
+		$.post(ajaxurl, data, function(response){
+
+			if(response.success){
+				$(image).val('')
+				$(first_name).val('')
+				$(last_name).val('')
+
+				$('#create_player_ajax_response').text(response.data.message)
+
+			} else {
+
+				$('#create_player_ajax_response').text(response.data.message)
+
+			}
+
+		})
+
+	})
+
+})

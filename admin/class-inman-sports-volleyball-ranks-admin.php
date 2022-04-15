@@ -20,6 +20,7 @@
  * @subpackage Inman_Sports_Volleyball_Ranks/admin
  * @author     Andrew Inman <andy@inmansports.com>
  */
+
 class Inman_Sports_Volleyball_Ranks_Admin {
 
 	/**
@@ -63,6 +64,10 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/inman-sports-volleyball-ranks-admin.css', array(), $this->version, 'all' );
 
+
+        wp_enqueue_style( 'featherlight-css', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css', array(), '1.7.14', 'all' );
+
+
 	}
 
 	/**
@@ -74,11 +79,13 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/inman-sports-volleyball-ranks-admin.js', array( 'jquery' ), $this->version, false );
 
+        wp_enqueue_script( 'featherlight-js', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js', array( 'jquery' ), '1.7.14', false );
+        
 	}
 
 
     // add a submenu page under the post_type player menu
-    public function add_import_menu_item() {
+    public function add_menu_items() {
         add_submenu_page(
             'edit.php?post_type=player',
             'Import Players',
@@ -86,9 +93,88 @@ class Inman_Sports_Volleyball_Ranks_Admin {
             'manage_options',
             'player-import',
             array( $this, 'import_players_page_callback' ),
-            -2
+            999
         );
+
     }
+
+
+    public function add_meta_boxes() {
+
+        add_meta_box(
+            'create_player_meta_box',
+            'Create a Player',
+            array( $this, 'player_create_meta_box_callback' ),
+            'post',
+            'side',
+            'high'
+        );
+
+    }
+
+
+
+    public function add_query_vars( $vars ) {
+        $vars[] = 'admin_player_form';
+        return $vars;
+    }
+
+
+    public function add_endpoints() {
+//        add_rewrite_tag( '%admin_player_form%', '([^&]+)' );
+//        add_rewrite_rule(
+//            '^admin_player_form/([^/]*)/?',
+//            'index.php?admin_player_form=$matches[1]',
+//            'top'
+//        );
+
+        global
+        $wp,$wp_rewrite;
+        $wp->add_query_var('admin_player_form');
+        $wp_rewrite->add_rule('^admin_player_form/([^/]*)/?',
+            'index.php?admin_player_form=$matches[1]', 'top');
+
+        $wp_rewrite->flush_rules(false);
+
+    }
+
+
+
+    public function update_player_affiliation_result_value( $text, $post, $field, $post_id ) {
+
+        return $text . ' <a  href="' . get_site_url() . '/admin_player_form/' . $post->ID . '" data-featherlight="iframe" data-featherlight-iframe-height="640" data-featherlight-iframe-width="600">Edit</a>';
+
+    }
+
+
+
+    public function template_redirect() {
+        global $wp_query;
+
+        if ( array_key_exists( 'admin_player_form', $wp_query->query_vars ) ) {
+            acf_form_head();
+            get_header();
+            echo '<style>html {margin:0!important} .elementor-location-header, .elementor-location-footer, #wpadminbar {display: none}</style>';
+
+            $form_args = array(
+                'name' => 'post-meta-box-create-player',
+                'player' => $GLOBALS['wp']->query_vars['admin_player_form'],
+            );
+            acfe_form($form_args);
+            get_footer();
+            exit;
+        }
+    }
+
+
+
+    public function player_create_meta_box_callback() {
+
+        echo '<a class="button btn button-primary" href="' . get_site_url() . '/admin_player_form/new-player" data-featherlight="iframe" data-featherlight-iframe-height="640" data-featherlight-iframe-width="600">Create Player</a>';
+
+    }
+
+
 
 
     public function import_players_page_callback() {
@@ -104,6 +190,10 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         import_players($players);
 
     }
+
+
+
+
 
 
 
@@ -194,12 +284,12 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
         $product_meta = '';
 
-        if ( $membership_type == 'coachscout' ) {
-            $item_name = 'Coach/Scout Membership';
+        if ( $membership_type == 'premium-access' ) {
+            $item_name = 'Premium Access';
             $subscription_cost = '99.99';
             $subscription_num = '1';
             $subscription_per = 'y';
-            $product_meta = 'coach-scout';
+            $product_meta = 'premium-access';
         } elseif ( $membership_type == 'player' ) {
             $item_name = 'Player Membership';
             $subscription_cost = '19.99';
@@ -260,7 +350,7 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         echo '</form>';
 
         // Submit the form with JS.
-        // echo '<script>document.paypalform.submit();</script>';
+        echo '<script>document.paypalform.submit();</script>';
 
         // Exit so no screen output.
         exit();
@@ -272,8 +362,8 @@ class Inman_Sports_Volleyball_Ranks_Admin {
     public function wpmem_adjust_payment_button( $args ){
         $membership_type = get_field('membership_type', 'user_'.get_current_user_id());
 
-        if ( $membership_type == 'coachscout' ) {
-            $args['subscription_name'] = 'Coach/Scout Membership';
+        if ( $membership_type == 'premium-access' ) {
+            $args['subscription_name'] = 'Premium Access';
             $args['subscription_cost'] = '99.99';
             $args['subscription_num'] = '1';
             $args['subscription_per'] = 'Y';
@@ -301,9 +391,8 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
     public function add_additional_details_to_reorder_item($additional_details, $post_data) {
         $graduating_class = get_the_terms($post_data->ID, 'graduating_class');
-        $national_rank = get_field( 'national_rank', $post_data->ID);
-        $class_rank = get_field( 'class_rank', $post_data->ID);
-        $additional_details .= ' | National Rank: ' . $national_rank . ' | Class Rank ('. $graduating_class[0]->name .'): ' . $class_rank;
+        $star_rating = get_field( 'star_rating', $post_data->ID);
+        $additional_details .= ' | Rating: ' . $star_rating . ' | Class '. $graduating_class[0]->name;
 
         return $additional_details;
     }
@@ -336,7 +425,17 @@ class Inman_Sports_Volleyball_Ranks_Admin {
 
 
 
+    
 
+
+
+
+    public function set_recruiting_school_default_value($field) {
+
+        $field['default_value'] = 998;
+        return $field;
+
+    }
 
 
 
