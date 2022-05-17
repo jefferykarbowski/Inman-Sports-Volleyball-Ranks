@@ -95,6 +95,16 @@ class Inman_Sports_Volleyball_Ranks_Admin {
             array( $this, 'import_players_page_callback' ),
             999
         );
+        // add export players submenu page
+        add_submenu_page(
+            'edit.php?post_type=player',
+            'Export Players',
+            'Export Players',
+            'manage_options',
+            'player-export',
+            array( $this, 'export_players_page_callback' ),
+            999
+        );
 
     }
 
@@ -188,6 +198,22 @@ class Inman_Sports_Volleyball_Ranks_Admin {
         require_once( __DIR__ . '/import-players.php');
 
         import_players($players);
+
+    }
+
+
+    // export players to csv
+    public function export_players_page_callback() {
+
+        // get all players
+        $players = get_posts(array(
+            'post_type' => 'player',
+            'posts_per_page' => -1
+        ));
+
+        require_once( __DIR__ . '/export-players.php');
+
+        export_players($players);
 
     }
 

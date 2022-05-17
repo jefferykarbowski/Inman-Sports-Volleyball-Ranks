@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
         var $el = $(this)
 
         $el.tooltipster({
-            content: $('<a href="'+ $el.attr('href') +'" class="player-quick-box tooltip-box no-image"><strong>' + $el.text() + '</strong><br>' + $el.data('position') + ' | ' + $el.data('club_team') + ($el.data('recruiting_school') == 'Uncommitted' || $el.data('recruiting_school') == '' ? '' : '<br>Committed to: ' + $el.data('recruiting_school'))
+            content: $('<a href="'+ $el.attr('href') +'" class="player-quick-box tooltip-box no-image"><strong>' + $el.text() + '</strong><br>' + $el.data('position') +  ($el.data('club_team') == '' ? '' : ' | ' + $el.data('club_team') ) + ($el.data('recruiting_school') == 'Uncommitted' || $el.data('recruiting_school') == '' ? '' : '<br>Committed to: ' + $el.data('recruiting_school'))
                 + '<br>Ranking: ' + createStarRating($el.data('rating')) + '</a>'),
             animation: 'fade',
             delay: 200,

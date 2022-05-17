@@ -674,13 +674,12 @@ class Inman_Sports_Volleyball_Ranks_Public
         if ((is_singular()) && (is_main_query())) {
             $string = $content;
 
-            // find anchor tags with '/player/' in the href and also get the data-id attribute
-            preg_match_all('/<a.*?href="(.*?)".*?data-id="(.*?)".*?>/', $string, $matches);
+            preg_match_all('/<a.*?href="(.*?)\/player\/(.*?)".*?data-id="(.*?)".*?>/', $string, $matches);
 
             // loop through the matches and replace the anchor tags with the player link popup
             foreach ($matches[0] as $key => $match) {
 
-                $player_id = $matches[2][$key];
+                $player_id = $matches[3][$key];
 
                 $player_position = get_the_terms($player_id, 'position');
                 $player_position = $player_position[0]->name;
@@ -697,8 +696,7 @@ class Inman_Sports_Volleyball_Ranks_Public
                     $player_rating = 'locked';
                 }
 
-
-                $string = str_replace($match, '<a href="' . $matches[1][$key] . '" data-id="' . $matches[2][$key] . '" class="player-link-popup" data-position="' . $player_position . '" data-club_team="' . $player_club_team . '" data-recruiting_school="' . $player_recruiting_school . '" data-rating="' . $player_rating . '">', $string);
+                $string = str_replace($match, '<a href="'.get_permalink($player_id).'" data-id="' . $player_id . '" class="player-link-popup" data-position="' . $player_position . '" data-club_team="' . $player_club_team . '" data-recruiting_school="' . $player_recruiting_school . '" data-rating="' . $player_rating . '">', $string);
             }
 
             return $string;

@@ -134,8 +134,11 @@ function import_players($players)
 
             // if ua_camp checkbox is checked, add the ua_camp to the post
             if (isset($_POST['ua_camp'])) {
-                $ua_camp = get_term_by('name', $player['ua_camp'], 'ua_camp');
-                wp_set_post_terms($player_id, array((int)$ua_camp->term_id), 'ua_camp', false);
+                if ($player['ua_camp'] == 1) {
+                    update_field('ua_camp', 1, $player_id);
+                } else {
+                    update_field('ua_camp', 0, $player_id);
+                }
             }
 
             // if height checkbox is checked, add the height to the post
